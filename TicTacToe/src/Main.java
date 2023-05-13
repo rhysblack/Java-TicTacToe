@@ -3,9 +3,14 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         // variables
-        int playerPosition, computerPosition, turnCounter;
+        int turnCounter;
         String keepPlaying = "";
-        boolean xWin, oWin;
+
+        //human player x object
+        Player playerX = new Player();
+
+        //computer player y object
+        Player compY = new Player();
 
         // input
         Scanner input = new Scanner(System.in);
@@ -26,15 +31,15 @@ public class Main {
                 System.out.println("X Turn");
 
                 //get valid input
-                playerPosition = getInput(spaces);
+                playerX.setPosition(getInput(spaces));
 
                 //set position to x
                 //red then reset back to normal colour
-                spaces[playerPosition] = "\u001B[31mX\u001B[0m";
+                spaces[playerX.getPosition()] = "\u001B[31mX\u001B[0m";
 
                 //check for win
-                xWin = checkWin(spaces, "\u001B[31mX\u001B[0m");
-                if(xWin){
+                playerX.setWin(checkWin(spaces, "\u001B[31mX\u001B[0m"));
+                if(playerX.getWin()){
                     printGrid(spaces);
                     System.out.println("\nX wins!");
                     break;
@@ -61,16 +66,16 @@ public class Main {
 
 
                 //computer
-                computerPosition = computerTurn(spaces);
+                compY.setPosition(computerTurn(spaces));
 
                 //set position to o
                 //cyan then reset back to normal colour
-                spaces[computerPosition] = "\u001B[36mO\u001B[0m";
+                spaces[compY.getPosition()] = "\u001B[36mO\u001B[0m";
 
 
                 // check for win
-                oWin = checkWin(spaces, "\u001B[36mO\u001B[0m");
-                if(oWin){
+                compY.setWin(checkWin(spaces, "\u001B[36mO\u001B[0m"));
+                if(compY.getWin()){
                     printGrid(spaces);
                     System.out.println("\nO wins!");
                     break;
