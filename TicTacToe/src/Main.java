@@ -4,16 +4,22 @@ public class Main {
     public static void main(String[] args) {
         // variables
         int turnCounter;
-        String keepPlaying = "";
+        String keepPlaying = "", choice = "";
 
         //human player x object
         Player playerX = new Player();
 
         //computer player y object
-        Player compY = new Player();
+        Player playerY = new Player();
 
         // input
         Scanner input = new Scanner(System.in);
+
+        //ask if player vs player or player vs computer
+        while(!choice.equalsIgnoreCase("computer") && !choice.equalsIgnoreCase("2 player") ){
+            System.out.println("\nEnter 'computer' if you want to play against the computer or '2 player' for 2 players: ");
+            choice = input.nextLine();
+        }
 
         // loop until player quits
         while(!keepPlaying.equalsIgnoreCase("quit")) {
@@ -57,25 +63,24 @@ public class Main {
                 System.out.println("\nTurn: " + turnCounter);
                 System.out.println("O Turn");
 
-                //second player
-                //get valid input
-                //playerPosition = getInput(spaces);
-
-                //set position to o
-                //spaces[playerPosition] = "O";
-
-
-                //computer
-                compY.setPosition(computerTurn(spaces));
+                //check if player 2 or computer
+                if(choice.equalsIgnoreCase("2 player")){
+                    //second player
+                    //get valid input
+                    playerY.setPosition(getInput(spaces));
+                }else{
+                    //computer
+                    //get random position
+                    playerY.setPosition(computerTurn(spaces));
+                }
 
                 //set position to o
                 //cyan then reset back to normal colour
-                spaces[compY.getPosition()] = "\u001B[36mO\u001B[0m";
-
+                spaces[playerY.getPosition()] = "\u001B[36mO\u001B[0m";
 
                 // check for win
-                compY.setWin(checkWin(spaces, "\u001B[36mO\u001B[0m"));
-                if(compY.getWin()){
+                playerY.setWin(checkWin(spaces, "\u001B[36mO\u001B[0m"));
+                if(playerY.getWin()){
                     printGrid(spaces);
                     System.out.println("\nO wins!");
                     break;
